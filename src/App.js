@@ -20,6 +20,8 @@ function App() {
     name: "Modern Talking - Cheri Cheri Lady"
   }]
 
+  const [shuffled, setShuffled] = useState(false)
+
   const playAndPause = () => {
     if (!trackPlayed) {
       audioRef.current.play()
@@ -39,22 +41,45 @@ function App() {
     audioRef.current.play();
     setTrackPlayed(true)
   }
-  const nextTrack = () => {
-    if (selectedTrack === playList.length - 1) {
-      setSelectedTrack(0)
-      renderTrack()
-    } else {
-      setSelectedTrack(selectedTrack+1)
-      renderTrack()
+
+  const generateRandomTrack = () => {
+    let randomTrack
+      while (true) {
+        randomTrack = Math.floor(Math.random() * (playList.length));
+        if(randomTrack !== selectedTrack) {
+          setSelectedTrack(randomTrack)
+          renderTrack()
+          break;
+        } 
+      }
     }
+
+
+  const nextTrack = () => {
+    if (!shuffled) {
+      if (selectedTrack === playList.length - 1) {
+        setSelectedTrack(0)
+        renderTrack()
+      } else {
+        setSelectedTrack(selectedTrack+1)
+        renderTrack()
+      }
+    } else {
+      generateRandomTrack()
+    }
+      
   }
   const prevTrack = () => {
-    if (selectedTrack === 0) {
-      setSelectedTrack(playList.length - 1)
-      renderTrack()
+    if (!shuffled) {
+      if (selectedTrack === 0) {
+        setSelectedTrack(playList.length - 1)
+        renderTrack()
+      } else {
+        setSelectedTrack(selectedTrack - 1)
+        renderTrack()
+      }
     } else {
-      setSelectedTrack(selectedTrack - 1)
-      renderTrack()
+      generateRandomTrack()
     }
   }
   const audioRef = useRef()
@@ -99,6 +124,12 @@ function App() {
         <button onClick={prevTrack}>Prev</button>
         <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
         <button onClick={nextTrack}>Next</button>
+        <button onClick={()=>{
+          setShuffled(prevState => {
+            return !prevState;
+          })
+        }}>{shuffled ? 'Not shuffled' : 'Shuffled'}
+        </button>
       </div>
     </div>
   );
