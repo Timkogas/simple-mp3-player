@@ -104,6 +104,11 @@ function App() {
     setWidthProgressBar((100 * currentTime / duration).toFixed(2))
   }
 
+  const selectTrack = (NumberTrack) => {
+    setSelectedTrack(NumberTrack)
+    renderTrack()
+  }
+
 
   return (
     <div className='App'>
@@ -147,6 +152,13 @@ function App() {
           })
         }}>{repeated ? 'Not repeated' : 'Repeated'}
         </button>
+      </div>
+
+      <div className='playlist'>
+        <div className='track' onClick = {()=>{selectTrack(0)}}>{playList[0].name}</div>
+        <div className='track' onClick = {()=>{selectTrack(1)}}>{playList[1].name}</div>
+        <div className='track' onClick = {()=>{selectTrack(2)}}>{playList[2].name}</div>
+        <div className='track' onClick = {()=>{selectTrack(3)}}>{playList[3].name}</div>
       </div>
     </div>
   );

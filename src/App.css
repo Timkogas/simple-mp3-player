@@ -38,6 +38,24 @@
   gap: 15px;
   justify-content: center;
 }
+.playlist {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+.track {
+  width: 50%;
+  margin: 0 auto;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+.track:hover {
+  background-color: rgb(214, 214, 214)
+}
+
 
 audio {
   display: none;
