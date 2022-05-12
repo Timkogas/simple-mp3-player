@@ -61,9 +61,17 @@ function App() {
   const [widthProgressBar, setWidthProgressBar] = useState(0)
   const styleProgressBar = {width: `${widthProgressBar}%`}
 
+  const progressBarClickChange = (e) => {
+    audioRef.current.currentTime = (e.nativeEvent.offsetX/1082)*duration
+    setCurrentTime(audioRef.current.currentTime)
+    setWidthProgressBar((100 * currentTime / duration).toFixed(2))
+  }
+
+
+
   return (
     <div className='App'>
-      <div className='progress_bar_border'>
+      <div className='progress_bar_border' onClick={progressBarClickChange}>
         <div className='progress_bar' style={styleProgressBar}></div>
       </div>
       <audio 
@@ -81,7 +89,9 @@ function App() {
         </source>
       </audio>
       <p className='track_name'>{playList[selectedTrack].name}</p>
-      <p className='track_duration'>{Math.trunc(duration/60)}:{ Math.trunc(duration%60)}</p>
+      <p className='track_duration'>
+        {Math.trunc(currentTime/60)}:{Math.trunc(currentTime%60)}  /  {Math.trunc(duration/60)}:{ Math.trunc(duration%60)}
+      </p>
       <button onClick={prevTrack}>Prev</button>
       <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
       <button onClick={nextTrack}>Next</button>
