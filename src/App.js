@@ -5,6 +5,10 @@ function App() {
   const [trackPlayed, setTrackPlayed] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [shuffled, setShuffled] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [widthProgressBar, setWidthProgressBar] = useState(0)
+  const [repeated, setRepeated] = useState(false)
 
   const playList = [{
     path: "./music/Buerak_-_Sportivnye_ochki_56989067.mp3",
@@ -20,7 +24,6 @@ function App() {
     name: "Modern Talking - Cheri Cheri Lady"
   }]
 
-  const [shuffled, setShuffled] = useState(false)
 
   const playAndPause = () => {
     if (!trackPlayed) {
@@ -56,35 +59,43 @@ function App() {
 
 
   const nextTrack = () => {
-    if (!shuffled) {
-      if (selectedTrack === playList.length - 1) {
-        setSelectedTrack(0)
-        renderTrack()
+    if (!repeated) {
+      if (!shuffled) {
+        if (selectedTrack === playList.length - 1) {
+          setSelectedTrack(0)
+          renderTrack()
+        } else {
+          setSelectedTrack(selectedTrack+1)
+          renderTrack()
+        }
       } else {
-        setSelectedTrack(selectedTrack+1)
-        renderTrack()
+        generateRandomTrack()
       }
     } else {
-      generateRandomTrack()
+      setSelectedTrack(selectedTrack)
+      renderTrack()
     }
       
   }
   const prevTrack = () => {
-    if (!shuffled) {
-      if (selectedTrack === 0) {
-        setSelectedTrack(playList.length - 1)
-        renderTrack()
+    if (!repeated) {
+      if (!shuffled) {
+        if (selectedTrack === 0) {
+          setSelectedTrack(playList.length - 1)
+          renderTrack()
+        } else {
+          setSelectedTrack(selectedTrack - 1)
+          renderTrack()
+        }
       } else {
-        setSelectedTrack(selectedTrack - 1)
-        renderTrack()
+        generateRandomTrack()
       }
     } else {
-      generateRandomTrack()
+      setSelectedTrack(selectedTrack)
+      renderTrack()
     }
   }
   const audioRef = useRef()
-  const [currentTime, setCurrentTime] = useState(0)
-  const [widthProgressBar, setWidthProgressBar] = useState(0)
   const styleProgressBar = {width: `${widthProgressBar}%`}
 
   const progressBarClickChange = (e) => {
@@ -129,6 +140,12 @@ function App() {
             return !prevState;
           })
         }}>{shuffled ? 'Not shuffled' : 'Shuffled'}
+        </button>
+        <button onClick={()=>{
+          setRepeated(prevState => {
+            return !prevState;
+          })
+        }}>{repeated ? 'Not repeated' : 'Repeated'}
         </button>
       </div>
     </div>
