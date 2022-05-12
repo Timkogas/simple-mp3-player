@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [trackPlayed, setTrackPlayed] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState(0)
+  const [duration, setDuration] = useState(0)
 
   const playList = [{
     path: "./music/Buerak_-_Sportivnye_ochki_56989067.mp3",
@@ -56,14 +57,29 @@ function App() {
     }
   }
   const audioRef = useRef()
+  let widthProcentageProgressBar = 0
+  const setWidthProcentageBar = () => {
+    
+  }
+
 
   return (
     <div className='App'>
-      <audio controls ref={audioRef} >
+      <div className='progress_bar_border'>
+        <div className='progress_bar' style={{width: widthProcentageProgressBar + '%'}}></div>
+      </div>
+      <audio 
+        controls 
+        ref={audioRef} 
+        onLoadedMetadata={()=>{
+          setDuration(audioRef.current.duration)
+        }}
+      >
         <source src={playList[selectedTrack].path} type='audio/mpeg'>
         </source>
       </audio>
-      <p className='trackName'>{playList[selectedTrack].name}</p>
+      <p className='track_name'>{playList[selectedTrack].name}</p>
+      <p className='track_duration'>{Math.trunc(duration/60)}:{ Math.trunc(duration%60)}</p>
       <button onClick={prevTrack}>Prev</button>
       <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
       <button onClick={nextTrack}>Next</button>
