@@ -68,7 +68,6 @@ function App() {
   }
 
 
-
   return (
     <div className='App'>
       <div className='progress_bar_border' onClick={progressBarClickChange}>
@@ -90,7 +89,9 @@ function App() {
       </audio>
       <p className='track_name'>{playList[selectedTrack].name}</p>
       <p className='track_duration'>
-        {Math.trunc(currentTime/60)}:{Math.trunc(currentTime%60)}  /  {Math.trunc(duration/60)}:{ Math.trunc(duration%60)}
+        {Math.trunc(currentTime/60)}
+        :
+        {currentTime%60 >= 10 ? '' : '0'}{Math.trunc(currentTime%60)}  /  {Math.trunc(duration/60)}:{ Math.trunc(duration%60)}
       </p>
       <button onClick={prevTrack}>Prev</button>
       <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
