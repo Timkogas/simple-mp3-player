@@ -37,6 +37,7 @@ function App() {
     audioRef.current.pause();
     audioRef.current.load();
     audioRef.current.play();
+    setTrackPlayed(true)
   }
   const nextTrack = () => {
     if (selectedTrack === playList.length - 1) {
