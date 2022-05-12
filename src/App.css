@@ -25,6 +25,19 @@
   width: 3px;
   background-color: darkslategrey;
 }
+.track_download {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+.track_download:hover {
+  color: rgb(85, 85, 85);
+}
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
 
 audio {
   display: none;

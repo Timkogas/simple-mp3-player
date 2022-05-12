@@ -89,14 +89,17 @@ function App() {
         </source>
       </audio>
       <p className='track_name'>{playList[selectedTrack].name}</p>
+      <a href={playList[selectedTrack].path} download className='track_download'>Download</a>
       <p className='track_duration'>
         {Math.trunc(currentTime/60)}
         :
         {currentTime%60 >= 10 ? '' : '0'}{Math.trunc(currentTime%60)}  /  {Math.trunc(duration/60)}:{ Math.trunc(duration%60)}
       </p>
-      <button onClick={prevTrack}>Prev</button>
-      <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
-      <button onClick={nextTrack}>Next</button>
+      <div className='buttons'>
+        <button onClick={prevTrack}>Prev</button>
+        <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
+        <button onClick={nextTrack}>Next</button>
+      </div>
     </div>
   );
 }
