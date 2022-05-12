@@ -6,11 +6,11 @@ function App() {
   const [selectedTrack, setSelectedTrack] = useState(0)
 
   const playList = [{
-    path: "./music/Rick_Astley_-_Never_Gonna_Give_You_Up_47958276.mp3",
-    name: "Rick Astley - Never Gonna Give You Up"
-  },{
     path: "./music/Buerak_-_Sportivnye_ochki_56989067.mp3",
     name: "Буерак - Спортивные очки"
+  },{
+    path: "./music/Rick_Astley_-_Never_Gonna_Give_You_Up_47958276.mp3",
+    name: "Rick Astley - Never Gonna Give You Up"
   },{
     path: "./music/Yung_Lean_-_Ginseng_Strip_2002_64304188.mp3",
     name: "Yung Lean - Ginseng Strip 2002"
@@ -63,8 +63,9 @@ function App() {
         <source src={playList[selectedTrack].path} type='audio/mpeg'>
         </source>
       </audio>
-      <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
+      <p className='trackName'>{playList[selectedTrack].name}</p>
       <button onClick={prevTrack}>Prev</button>
+      <button onClick={playAndPause}>{trackPlayed ? "Pause" : 'Play'}</button>
       <button onClick={nextTrack}>Next</button>
     </div>
   );
