@@ -14,7 +14,18 @@
   width: 0%;
   height: 9px;
   transition: all 0.2s;
+  position: relative;
 }
+.progress_bar::after{
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: -2px;
+  height: 13px;
+  width: 3px;
+  background-color: darkslategrey;
+}
+
 audio {
   display: none;
 }
