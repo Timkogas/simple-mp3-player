@@ -57,22 +57,24 @@ function App() {
     }
   }
   const audioRef = useRef()
-  let widthProcentageProgressBar = 0
-  const setWidthProcentageBar = () => {
-    
-  }
-
+  const [currentTime, setCurrentTime] = useState(0)
+  const [widthProgressBar, setWidthProgressBar] = useState(0)
+  const styleProgressBar = {width: `${widthProgressBar}%`}
 
   return (
     <div className='App'>
       <div className='progress_bar_border'>
-        <div className='progress_bar' style={{width: widthProcentageProgressBar + '%'}}></div>
+        <div className='progress_bar' style={styleProgressBar}></div>
       </div>
       <audio 
         controls 
         ref={audioRef} 
         onLoadedMetadata={()=>{
           setDuration(audioRef.current.duration)
+        }}
+        onTimeUpdate = {(e)=>{
+          setCurrentTime(audioRef.current.currentTime)
+          setWidthProgressBar((100 * currentTime / duration).toFixed(2))
         }}
       >
         <source src={playList[selectedTrack].path} type='audio/mpeg'>
