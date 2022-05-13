@@ -124,6 +124,9 @@ function App() {
         onTimeUpdate = {(e)=>{
           setCurrentTime(audioRef.current.currentTime)
           setWidthProgressBar((100 * currentTime / duration).toFixed(2))
+          if (audioRef.current.currentTime === duration && repeated) {
+            nextTrack()
+          }
         }}
       >
         <source src={playList[selectedTrack].path} type='audio/mpeg'>
